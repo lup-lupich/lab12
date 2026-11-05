@@ -11,10 +11,19 @@ void task5();
 int main() {
 	setlocale(LC_CTYPE, "RUS");
 
-	task1();
-	task2();
-	task3();
+	int user_input;
 
+	printf("Выберите задание: ");
+	scanf("%d", &user_input);
+	printf("\n");
+
+	switch (user_input) {
+		case 1: task1(); break;
+		case 2: task2(); break;
+		case 3: task3(); break;
+		case 4: task4(); break;
+		//case 5: task5(); break;
+	}
 	return 0;
 }
 
@@ -136,4 +145,42 @@ void task3() {
 	//происходит переход на другую ячейку памяти, в которой лежит другое число.
 	//При уменьшении указателя на единицу, его значение становится исходным, он указывает на 5 и выводит 5.
 	//Для double указатель смещается на 8 байт, для char на 1 байт, для long double на 8 байт (должен на 16 байт), для unsigned short на 2 байта, для _Bool на 1 байт.
+}
+
+void task4() {
+	float array[10] = { 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.1 };
+	float* ptr_a = array;
+	int i = 0;
+
+	printf("%p\n", array);
+	printf("%p\n", &array[0]);
+	printf("%p\n\n", &array);
+
+	printf("%p, %f\n", ptr_a, *ptr_a);
+	ptr_a++;
+	printf("%p, %f\n", ptr_a, *ptr_a);
+	printf("%p, %f\n", ptr_a + 4, *(ptr_a + 4));
+	printf("%p, %f\n\n", ptr_a - 2, *(ptr_a - 2)); //Выход за границы массивы
+
+	ptr_a = array;
+	for (; ptr_a < &array[10]; ptr_a += 2) {
+
+		printf("array[%d] = %.1f\n", i, *ptr_a);
+		printf("ptr_a(array[%d]) = %p\n", i, ptr_a);
+
+		i += 2;
+	}
+	
+	printf("\n");
+
+	ptr_a = &array[9];
+	i = 9;
+	for (; ptr_a >= &array[0]; ptr_a--) {
+
+		printf("array[%d] = %.1f\n", i, *ptr_a);
+		printf("ptr_a(array[%d]) = %p\n", i, ptr_a);
+
+		i--;
+	}
+
 }
