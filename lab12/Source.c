@@ -7,6 +7,8 @@ void task2();
 void task3();
 void task4();
 void task5();
+void task5_2();
+void task5_3();
 
 int main() {
 	setlocale(LC_CTYPE, "RUS");
@@ -22,7 +24,7 @@ int main() {
 		case 2: task2(); break;
 		case 3: task3(); break;
 		case 4: task4(); break;
-		//case 5: task5(); break;
+		case 5: task5(); break;
 	}
 	return 0;
 }
@@ -152,6 +154,8 @@ void task4() {
 	float* ptr_a = array;
 	int i = 0;
 
+	printf("Задание 4\n\n");
+
 	printf("%p\n", array);
 	printf("%p\n", &array[0]);
 	printf("%p\n\n", &array);
@@ -181,6 +185,90 @@ void task4() {
 		printf("ptr_a(array[%d]) = %p\n", i, ptr_a);
 
 		i--;
+	}
+
+}
+
+void task5() {
+	int x = 0x12345678;
+	int* ptr;
+	unsigned char* a1, * a2, * a3, * a4;
+	unsigned char* a;
+
+	ptr = &x;
+	a = (unsigned char*)ptr; //Размер - 1 байт
+
+	a1 = a + 3; //Получение 4 байта
+	a2 = a + 2; //Получение 3 байта
+	a3 = a + 1; //Получение 2 байт
+	a4 = a; //Получение 1 байта
+
+	printf("Задание 5\n\n");
+
+	printf("%.2x\n%.2x\n%.2x\n%.2x\n\n", *a1, *a2, *a3, *a4);
+
+	//Используется "little-end", младший байт размещается по младшему адресу памяти. В памяти число лежит как 78 56 34 12
+
+	task5_2();
+	task5_3();
+}
+
+void task5_2() {
+	int x = 0x12345678;
+	double d = 0.123456;
+	unsigned char* ptr;
+
+	ptr = (unsigned char*) &x;
+
+	printf("INT:\n");
+
+	for (int i = 0; i < sizeof(x); i++) {
+		printf("%.2x ", *(ptr + i));
+	}
+
+	printf("\n\n");
+
+	ptr = (unsigned char*)&d;
+
+	printf("DOUBLE:\n");
+
+	for (int i = 0; i < sizeof(d); i++) {
+		printf("%.2x ", *(ptr + i));
+	}
+
+	printf("\n\n");
+
+}
+
+void task5_3() {
+	int I = 12345;
+	float f = 12345.0f;
+	double d = 12345.0;
+	unsigned char* ptr;
+
+	printf("INT:\n");
+	ptr = (unsigned char*) &I;
+
+	for (int i = 0; i < sizeof(I); i++) {
+		printf("%.2x ", *(ptr + i));
+	}
+
+	printf("\n\n");
+
+	printf("FLOAT:\n");
+	ptr = (unsigned char*)&f;
+
+	for (int i = 0; i < sizeof(f); i++) {
+		printf("%.2x ", *(ptr + i));
+	}
+
+	printf("\n\n");
+
+	printf("DOUBLE:\n");
+	ptr = (unsigned char*)&d;
+
+	for (int i = 0; i < sizeof(d); i++) {
+		printf("%.2x ", *(ptr + i));
 	}
 
 }
